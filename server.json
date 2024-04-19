@@ -1,0 +1,46 @@
+[
+    {
+        "httpRequest": {
+            "method": "POST",
+            "path": "/endpoint",
+            "body": {
+                "type": "JSON",
+                "json": {
+                    "some_param": "param_in_json_body"
+                }
+            }
+        },
+        "httpResponse": {
+            "statusCode": 200,
+            "headers": {
+                "content-type": [
+                    "application/json"
+                ]
+            },
+            "delay": {
+                "value": 1000
+            },
+            "body": {}
+        }
+    },
+    {
+        "httpRequest": {
+            "method": "GET",
+            "path": "/endpoint"
+        },
+        "httpResponse": {
+            "statusCode": 200,
+            "headers": {
+                "content-type": [
+                    "application/json"
+                ]
+            },
+            "delay": {
+                "value": 1000
+            },
+            "body": {
+                "okay": true
+            }
+        }
+    }
+]
