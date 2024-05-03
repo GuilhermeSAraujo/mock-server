@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express } from 'express';
 import { IServer } from 'types';
 
 
@@ -13,27 +13,47 @@ export function createServer(configs: IServer[]) {
         const method = config.httpRequest.method;
         switch (method) {
             case 'GET':
-                app.get(config.httpRequest.path, (req, res) => {
-                    res.status(config.httpResponse.statusCode);
-                    res.set('Content-Type', config.httpResponse.headers.contentType[0]);
-                    setTimeout(() => {
-                        res.send(config.httpResponse.body);
-                    }, config.httpResponse.delay.value);
-                });
+                getEndpoint(app, config);
                 break;
             case 'POST':
-                app.post(config.httpRequest.path, (req, res) => {
-                    res.status(config.httpResponse.statusCode);
-                    res.set('Content-Type', config.httpResponse.headers.contentType[0]);
-                    setTimeout(() => {
-                        res.send(config.httpResponse.body);
-                    }, config.httpResponse.delay.value);
-                });
+                postEndpoint(app, config);
                 break;
         }
     });
 
     app.listen(3000, () => {
         console.log('Server running on port 3000');
+    });
+}
+
+function getEndpoint(app: Express, config: IServer) {
+    app.get(config.httpRequest.path, (req, res) => {
+        res.status(config.httpResponse.statusCode);
+        res.set('Content-Type', config.httpResponse.headers.contentType[0]);
+
+        setTimeout(() => {
+            res.send(config.httpResponse.body);
+        }, config.httpResponse.delay.value);
+    });
+}
+
+function postEndpoint(app: Express, config: IServer) {
+    app.post(config.httpRequest.path, (req, res) => {
+        if (config.httpRequest.body.type == "JSON") {
+            for (const [key, value] of Object.entries(config.httpRequest.body.json)) {
+                if (req.body[key] != value) {
+                    res.status(400);
+                    res.send('Bad Request');
+                    return;
+                }
+            }
+        }
+
+        res.status(config.httpResponse.statusCode);
+        res.set('Content-Type', config.httpResponse.headers.contentType[0]);
+
+        setTimeout(() => {
+            res.send(config.httpResponse.body);
+        }, config.httpResponse.delay.value);
     });
 }
