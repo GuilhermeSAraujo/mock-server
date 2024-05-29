@@ -27,7 +27,7 @@ export function createServer(configs: IServer[]) {
 }
 
 function getEndpoint(app: Express, config: IServer) {
-    app.get(config.httpRequest.path, (req, res) => {
+    app.get(config.httpRequest.path, (_, res) => {
         res.status(config.httpResponse.statusCode);
         res.set('Content-Type', config.httpResponse.headers.contentType[0]);
 
@@ -39,13 +39,11 @@ function getEndpoint(app: Express, config: IServer) {
 
 function postEndpoint(app: Express, config: IServer) {
     app.post(config.httpRequest.path, (req, res) => {
-        if (config.httpRequest.body.type == "JSON") {
-            for (const [key, value] of Object.entries(config.httpRequest.body.json)) {
-                if (req.body[key] != value) {
-                    res.status(400);
-                    res.send('Bad Request');
-                    return;
-                }
+        for (const [key, value] of Object.entries(req.body)) {
+            if (!config.httpRequest.body.keys.includes(key)) {
+                res.status(400);
+                res.send('Bad Request');
+                return;
             }
         }
 

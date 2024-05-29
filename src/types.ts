@@ -3,10 +3,7 @@ export interface IServer {
         method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
         path: string;
         body: {
-            type: string;
-            json: {
-                [key: string]: any;
-            };
+            keys: string[]
         };
     };
     httpResponse: {

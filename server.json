@@ -4,10 +4,10 @@
             "method": "POST",
             "path": "/endpoint",
             "body": {
-                "type": "JSON",
-                "json": {
-                    "some_param": "param_in_json_body"
-                }
+                "keys": [
+                    "brand",
+                    "name"
+                ]
             }
         },
         "httpResponse": {
@@ -33,7 +33,7 @@
         "httpResponse": {
             "statusCode": 200,
             "headers": {
-                "content-type": [
+                "contentType": [
                     "application/json"
                 ]
             },
