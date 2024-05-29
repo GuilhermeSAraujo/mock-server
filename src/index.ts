@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { IServer } from 'types';
-import { createServer } from './server.js';
+import { createServer } from './server.ts';
 
 const file = fs.readFileSync("server.json", "utf8");
 
