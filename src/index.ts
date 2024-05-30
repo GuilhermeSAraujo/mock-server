@@ -5,7 +5,6 @@ import { createServer } from './server.ts';
 const file = fs.readFileSync("server.json", "utf8");
 
 try {
-
     const configs: IServer[] = JSON.parse(file);
 
     createServer(configs);

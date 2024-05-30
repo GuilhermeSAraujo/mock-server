@@ -42,7 +42,12 @@ function postEndpoint(app: Express, config: IServer) {
         for (const [key, value] of Object.entries(req.body)) {
             if (!config.httpRequest.body.keys.includes(key)) {
                 res.status(400);
-                res.send('Bad Request');
+                res.send({
+                    message: "Bad request",
+                    details: `Key: ${key} is not present.`,
+                    expectedKeys: `${config.httpRequest.body.keys.join(" | ")}`,
+                    receivedKeys: `${Object.entries(req.body).join(" | ")}`
+                });
                 return;
             }
         }

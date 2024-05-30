@@ -2,16 +2,16 @@
     {
         "httpRequest": {
             "method": "POST",
-            "path": "/endpoint",
+            "path": "/car",
             "body": {
                 "keys": [
                     "brand",
-                    "name"
+                    "model"
                 ]
             }
         },
         "httpResponse": {
-            "statusCode": 200,
+            "statusCode": 201,
             "headers": {
                 "contentType": [
                     "application/json"
@@ -21,14 +21,14 @@
                 "value": 1500
             },
             "body": {
-                "ok": "oiii"
+                "ok": true
             }
         }
     },
     {
         "httpRequest": {
             "method": "GET",
-            "path": "/endpoint"
+            "path": "/car"
         },
         "httpResponse": {
             "statusCode": 200,
@@ -40,9 +40,20 @@
             "delay": {
                 "value": 1000
             },
-            "body": {
-                "okay": true
-            }
+            "body": [
+                {
+                    "brand": "Fiat",
+                    "model": "Palio"
+                },
+                {
+                    "brand": "Fiat",
+                    "model": "Punto"
+                },
+                {
+                    "brand": "volkswagen",
+                    "model": "Up"
+                }
+            ]
         }
     }
 ]
