@@ -21,8 +21,10 @@ export function createServer(configs: IServer[]) {
         }
     });
 
-    app.listen(3000, () => {
-        console.log('Server running on port 3000');
+    app.listen(9998, () => {
+        console.log("Server is running on port 9998");
+        console.log("Endpoints:");
+        console.log(`${configs.map(config => config.httpRequest.method + " " + config.httpRequest.path).join("\n")}`);
     });
 }
 
